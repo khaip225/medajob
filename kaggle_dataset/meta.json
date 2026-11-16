@@ -1,0 +1,457 @@
+{
+ "name": "Vietnamese job recommendation graph dataset (backend data, cleaned + simulated applications)",
+ "seed": 2026,
+ "driver_cap": 500,
+ "n_jobs": 38101,
+ "n_users": 2096,
+ "n_interactions": 49664,
+ "split_counts": {
+  "train": 34762,
+  "val": 7451,
+  "test": 7451
+ },
+ "n_hard_negatives": 206721,
+ "unit_names": [
+  "Hà Nội",
+  "Huế",
+  "Lai Châu",
+  "Điện Biên",
+  "Sơn La",
+  "Lạng Sơn",
+  "Quảng Ninh",
+  "Thanh Hóa",
+  "Nghệ An",
+  "Hà Tĩnh",
+  "Cao Bằng",
+  "Tuyên Quang",
+  "Lào Cai",
+  "Thái Nguyên",
+  "Phú Thọ",
+  "Bắc Ninh",
+  "Hưng Yên",
+  "Hải Phòng",
+  "Ninh Bình",
+  "Quảng Trị",
+  "Đà Nẵng",
+  "Quảng Ngãi",
+  "Gia Lai",
+  "Khánh Hòa",
+  "Lâm Đồng",
+  "Đắk Lắk",
+  "TP. Hồ Chí Minh",
+  "Đồng Nai",
+  "Tây Ninh",
+  "Cần Thơ",
+  "Vĩnh Long",
+  "Đồng Tháp",
+  "Cà Mau",
+  "An Giang"
+ ],
+ "unit_latlon": [
+  [
+   21.03,
+   105.85
+  ],
+  [
+   16.46,
+   107.59
+  ],
+  [
+   22.4,
+   103.45
+  ],
+  [
+   21.39,
+   103.02
+  ],
+  [
+   21.33,
+   103.91
+  ],
+  [
+   21.85,
+   106.76
+  ],
+  [
+   21.01,
+   107.29
+  ],
+  [
+   19.81,
+   105.78
+  ],
+  [
+   18.9,
+   105.3
+  ],
+  [
+   18.34,
+   105.91
+  ],
+  [
+   22.67,
+   106.26
+  ],
+  [
+   22.3,
+   105.1
+  ],
+  [
+   22.1,
+   104.2
+  ],
+  [
+   21.8,
+   105.9
+  ],
+  [
+   21.3,
+   105.2
+  ],
+  [
+   21.2,
+   106.1
+  ],
+  [
+   20.7,
+   106.2
+  ],
+  [
+   20.85,
+   106.68
+  ],
+  [
+   20.3,
+   105.98
+  ],
+  [
+   17.2,
+   106.8
+  ],
+  [
+   15.9,
+   108.2
+  ],
+  [
+   15.0,
+   108.4
+  ],
+  [
+   14.0,
+   108.5
+  ],
+  [
+   12.2,
+   109.1
+  ],
+  [
+   11.7,
+   108.2
+  ],
+  [
+   13.0,
+   108.3
+  ],
+  [
+   10.8,
+   106.7
+  ],
+  [
+   11.1,
+   107.0
+  ],
+  [
+   11.2,
+   106.2
+  ],
+  [
+   9.9,
+   105.8
+  ],
+  [
+   10.1,
+   106.0
+  ],
+  [
+   10.4,
+   105.9
+  ],
+  [
+   9.2,
+   105.2
+  ],
+  [
+   10.2,
+   105.1
+  ]
+ ],
+ "any_unit": "Toàn quốc",
+ "occupations": {
+  "lai_xe": {
+   "name": "Lái xe / Tài xế",
+   "industry_group": "Vận tải - Logistics"
+  },
+  "it_dev": {
+   "name": "Lập trình / Phát triển phần mềm",
+   "industry_group": "Công nghệ thông tin"
+  },
+  "it_test": {
+   "name": "Kiểm thử phần mềm",
+   "industry_group": "Công nghệ thông tin"
+  },
+  "it_infra": {
+   "name": "IT hạ tầng / Hỗ trợ kỹ thuật",
+   "industry_group": "Công nghệ thông tin"
+  },
+  "data_ba": {
+   "name": "Phân tích dữ liệu / BA",
+   "industry_group": "Công nghệ thông tin"
+  },
+  "ke_toan": {
+   "name": "Kế toán / Kiểm toán",
+   "industry_group": "Tài chính - Kế toán"
+  },
+  "tai_chinh": {
+   "name": "Ngân hàng / Tài chính / Bảo hiểm",
+   "industry_group": "Tài chính - Kế toán"
+  },
+  "xnk": {
+   "name": "Xuất nhập khẩu / Chứng từ",
+   "industry_group": "Vận tải - Logistics"
+  },
+  "thu_mua": {
+   "name": "Thu mua / Vật tư / Cung ứng",
+   "industry_group": "Vận tải - Logistics"
+  },
+  "kho_van": {
+   "name": "Kho vận / Giao nhận",
+   "industry_group": "Vận tải - Logistics"
+  },
+  "marketing": {
+   "name": "Marketing / Truyền thông",
+   "industry_group": "Marketing - Truyền thông"
+  },
+  "thiet_ke": {
+   "name": "Thiết kế / Sáng tạo",
+   "industry_group": "Marketing - Truyền thông"
+  },
+  "cskh": {
+   "name": "Chăm sóc khách hàng / Telesales",
+   "industry_group": "Kinh doanh - Bán hàng"
+  },
+  "bds": {
+   "name": "Bất động sản / Môi giới",
+   "industry_group": "Xây dựng - BĐS"
+  },
+  "kinh_doanh": {
+   "name": "Kinh doanh / Bán hàng",
+   "industry_group": "Kinh doanh - Bán hàng"
+  },
+  "nhan_su": {
+   "name": "Nhân sự / Tuyển dụng",
+   "industry_group": "Hành chính - Nhân sự"
+  },
+  "phap_che": {
+   "name": "Pháp chế / Luật",
+   "industry_group": "Hành chính - Nhân sự"
+  },
+  "phien_dich": {
+   "name": "Biên phiên dịch / Ngoại ngữ",
+   "industry_group": "Hành chính - Nhân sự"
+  },
+  "hanh_chinh": {
+   "name": "Hành chính / Văn phòng / Trợ lý",
+   "industry_group": "Hành chính - Nhân sự"
+  },
+  "giao_duc": {
+   "name": "Giáo dục / Đào tạo",
+   "industry_group": "Giáo dục - Đào tạo"
+  },
+  "y_te": {
+   "name": "Y tế / Dược",
+   "industry_group": "Y tế - Dược"
+  },
+  "xay_dung": {
+   "name": "Xây dựng / Kiến trúc",
+   "industry_group": "Xây dựng - BĐS"
+  },
+  "dien": {
+   "name": "Điện / Điện tử / Tự động hóa",
+   "industry_group": "Kỹ thuật - Sản xuất"
+  },
+  "co_khi": {
+   "name": "Cơ khí / Chế tạo",
+   "industry_group": "Kỹ thuật - Sản xuất"
+  },
+  "bao_tri": {
+   "name": "Bảo trì / Kỹ thuật viên",
+   "industry_group": "Kỹ thuật - Sản xuất"
+  },
+  "qa_qc": {
+   "name": "QA / QC sản xuất",
+   "industry_group": "Kỹ thuật - Sản xuất"
+  },
+  "san_xuat": {
+   "name": "Sản xuất / Vận hành",
+   "industry_group": "Kỹ thuật - Sản xuất"
+  },
+  "fnb": {
+   "name": "Nhà hàng / Khách sạn / F&B",
+   "industry_group": "Dịch vụ - F&B - Làm đẹp"
+  },
+  "lam_dep": {
+   "name": "Làm đẹp / Spa / Thể hình",
+   "industry_group": "Dịch vụ - F&B - Làm đẹp"
+  },
+  "du_lich": {
+   "name": "Du lịch / Lữ hành",
+   "industry_group": "Dịch vụ - F&B - Làm đẹp"
+  },
+  "nong_nghiep": {
+   "name": "Nông - Lâm - Ngư nghiệp",
+   "industry_group": "Nông - Lâm - Ngư nghiệp"
+  },
+  "lao_dong_pt": {
+   "name": "Lao động phổ thông / Bảo vệ / Tạp vụ",
+   "industry_group": "Lao động phổ thông"
+  },
+  "khac": {
+   "name": "Khác",
+   "industry_group": "Khác"
+  }
+ },
+ "industry_groups": [
+  "Kinh doanh - Bán hàng",
+  "Tài chính - Kế toán",
+  "Kỹ thuật - Sản xuất",
+  "Hành chính - Nhân sự",
+  "Xây dựng - BĐS",
+  "Marketing - Truyền thông",
+  "Công nghệ thông tin",
+  "Dịch vụ - F&B - Làm đẹp",
+  "Vận tải - Logistics",
+  "Giáo dục - Đào tạo",
+  "Y tế - Dược",
+  "Lao động phổ thông",
+  "Nông - Lâm - Ngư nghiệp",
+  "Khác"
+ ],
+ "levels": {
+  "0": "Thực tập / Sinh viên",
+  "1": "Nhân viên",
+  "2": "Trưởng nhóm / Giám sát",
+  "3": "Trưởng phòng / Quản lý",
+  "4": "Giám đốc"
+ },
+ "degree_levels": {
+  "0": "THPT",
+  "1": "Trung cấp / Nghề",
+  "2": "Cao đẳng",
+  "3": "Đại học",
+  "4": "Sau đại học"
+ },
+ "benefit_groups": [
+  "Bảo hiểm",
+  "Thưởng",
+  "Phụ cấp",
+  "Đào tạo/thăng tiến",
+  "Khám sức khỏe",
+  "Nghỉ phép/du lịch",
+  "Linh hoạt/remote",
+  "Nhà ở/xe đưa đón",
+  "Lễ tết/sinh nhật"
+ ],
+ "units_note": "units = ';'-separated names of the 34 post-2025 units, or 'Toàn quốc'; empty = unknown",
+ "salary_unit": "million VND / month; NaN when negotiable ('thỏa thuận') or missing",
+ "coverage": {
+  "job": {
+   "units": 0.9816,
+   "exp": 1.0,
+   "salary": 0.6078,
+   "degree": 0.6879,
+   "industry_known": 0.9858,
+   "occupation_known": 0.9819
+  },
+  "user": {
+   "units": 1.0,
+   "exp": 1.0,
+   "salary": 0.1135,
+   "degree": 0.7295,
+   "industry_known": 0.9905,
+   "occupation_known": 0.99
+  }
+ },
+ "behaviour_model": {
+  "params": {
+   "w_occ": 3.0,
+   "w_ind": 0.8,
+   "w_text": 8.0,
+   "w_level": 0.6,
+   "loc_base": 6.0,
+   "exp_per_year": 1.0,
+   "exp_tol": 1.0,
+   "deg_per_level": 1.4,
+   "sal_ratio": 0.8,
+   "sal_w": 3.0,
+   "w_overqual": 0.15,
+   "w_attr_sal": 0.35,
+   "w_attr_ben": 0.06,
+   "w_attr_company": 0.12,
+   "w_pop": 0.7,
+   "cf_dim": 8,
+   "w_cf": 0.9,
+   "cf_user_noise": 0.6,
+   "temperature": 0.4,
+   "n_pos_median": 20,
+   "n_pos_sigma": 0.45,
+   "n_pos_min": 8,
+   "n_pos_max": 50,
+   "n_hard": 100
+  },
+  "description": "Utility of user u for job j (all terms documented in meta.json -> 'behaviour_model'):\n  U(u,j) = w_occ * S_occ[occ_u, occ_j]               role fit (related roles get partial credit)\n         + w_ind * [industry_u == industry_j]\n         + w_text * tfidf(u, j)                         fine-grained title/skill match\n         - w_level * |level_u - level_j|\n         + attractiveness_j                             salary vs role median, #benefits, employer size,\n                                                        latent popularity eps_j (only visible through edges)\n         + w_cf * <a_u, b_j>                            latent taste shared by users of the same role\n         - lambda_loc(u)  * loc_cost(u,j)               lambda depends on #wished units, age, marital status\n         - exp_per_year   * max(0, jx - ux - tol)       - small over-qualification cost for entry jobs\n         - deg_per_level  * max(0, jd - ud)\n         - lambda_sal(u)  * max(0, log(0.8*us / jh))    only users who stated a salary care\n         + employment-type fit (part-time seekers vs full-time jobs and vice versa)\nEach user applies to n_u ~ LogNormal jobs drawn without replacement with Gumbel-top-k\n(Plackett-Luce) at temperature T: realistic, stochastic, but learnable."
+ },
+ "positives_violation_rate": {
+  "province": 0.022,
+  "experience": 0.0113,
+  "degree": 0.0104,
+  "salary": 0.0007
+ },
+ "random_violation_rate": {
+  "province": 0.7005,
+  "experience": 0.117,
+  "degree": 0.2062,
+  "salary": 0.004
+ },
+ "positives_same_occupation": 0.8464,
+ "baseline_check": {
+  "random": {
+   "ndcg": 0.0,
+   "recall": 0.0
+  },
+  "popularity": {
+   "ndcg": 0.0442,
+   "recall": 0.0765
+  },
+  "content_tfidf": {
+   "ndcg": 0.0464,
+   "recall": 0.0807
+  },
+  "content+feasible": {
+   "ndcg": 0.222,
+   "recall": 0.3329
+  },
+  "userKNN_CF": {
+   "ndcg": 0.3578,
+   "recall": 0.4764
+  },
+  "content+feasible+CF": {
+   "ndcg": 0.4206,
+   "recall": 0.5551
+  },
+  "ORACLE_true_utility": {
+   "ndcg": 0.6548,
+   "recall": 0.7587
+  }
+ },
+ "backend_mapping": "db_job_id / db_user_id = row number (1-based) of COMBINED_DATA_PROCESSED1.csv / USER_DATA_PROCESSED1.csv = id given by import_jobs.py / import_users.py on a fresh DB; db_*_ids lists all merged duplicates."
+}

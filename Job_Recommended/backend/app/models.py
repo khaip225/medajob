@@ -1,0 +1,174 @@
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
+db = SQLAlchemy()
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False, index=True)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(64), nullable=False)
+    role = db.Column(db.String(20), default='seeker', index=True)  # 'seeker' | 'admin'
+    is_active = db.Column(db.Boolean, default=True, index=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    recommendations = db.Column(db.Text)
+    saved_jobs = db.Column(db.Text)  # JSON array of job IDs
+    recent_applied_jobs = db.Column(db.Text)  # JSON array of most recent applied job IDs
+
+    # infor = db.relationship('InforUser', backref='user', uselist=False,
+    #                         primaryjoin='User.id == foreign(InforUser.user_id)')
+    # applications = db.relationship('Application', backref='seeker', lazy='dynamic')
+
+
+class InforUser(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255))
+    avatar_path = db.Column(db.String(255))
+    phone = db.Column(db.String(20))
+    industry = db.Column(db.String(255))
+    desired_job = db.Column(db.String(255))
+    workplace_desired = db.Column(db.String(255))
+    desired_salary = db.Column(db.String(50))
+    gender = db.Column(db.String(50))
+    marriage = db.Column(db.String(100))
+    age = db.Column(db.Integer)
+    # index common filter columns
+    age = db.Column(db.Integer, index=True)
+    target = db.Column(db.Text)
+    experience = db.Column(db.Text)
+    skills = db.Column(db.Text)
+    degree = db.Column(db.Text)
+    exp_min = db.Column(db.String(50))
+    exp_max = db.Column(db.String(50))
+    user_embedding = db.Column(db.Text)  # JSON-encoded embedding vector
+
+
+class Employer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    company_name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(64), nullable=False)
+    phone = db.Column(db.String(20))
+    address = db.Column(db.Text)
+    website = db.Column(db.String(255))
+    description = db.Column(db.Text)
+    logo_path = db.Column(db.String(255))
+    industry = db.Column(db.String(255))
+    is_active = db.Column(db.Boolean, default=True)
+    is_verified = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+
+    jobs = db.relationship('Job', backref='employer', lazy='dynamic')
+
+
+class Job(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    employer_id = db.Column(db.Integer, db.ForeignKey('employer.id'), nullable=True, index=True)
+    job_title = db.Column(db.String(255), nullable=False, index=True)
+    company_name = db.Column(db.String(255), nullable=False)
+    salary_min = db.Column(db.String(50))
+    salary_max = db.Column(db.String(50))
+    job_address = db.Column(db.String(300))
+    job_detail_address = db.Column(db.Text)
+    deadline = db.Column(db.DateTime)
+    exp_min = db.Column(db.String(50))
+    exp_max = db.Column(db.String(50))
+    benefits = db.Column(db.Text)
+    employment_type = db.Column(db.String(100))
+    job_function = db.Column(db.String(255))
+    industries = db.Column(db.Text)
+    job_description = db.Column(db.Text)
+    job_requirement = db.Column(db.Text)
+    is_active = db.Column(db.Boolean, default=True, index=True)
+    is_locked = db.Column(db.Boolean, default=False)
+    is_hidden = db.Column(db.Boolean, default=False)
+    is_deleted = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    job_embedding = db.Column(db.Text)  # JSON-encoded embedding vector
+
+    __table_args__ = (
+        db.Index('ix_job_employer_created', 'employer_id', 'created_at'),
+    )
+
+    applications = db.relationship('Application', backref='job', lazy='dynamic')
+
+
+class Application(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
+    job_id = db.Column(db.Integer, db.ForeignKey('job.id'), nullable=False, index=True)
+    cover_letter = db.Column(db.Text)
+    cv_path = db.Column(db.String(255))
+    # pending | reviewed | interview | accepted | rejected
+    status = db.Column(db.String(50), default='pending')
+    employer_note = db.Column(db.Text)
+    applied_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, index=True)
+
+    __table_args__ = (
+        db.UniqueConstraint('user_id', 'job_id', name='uq_user_job_application'),
+    )
+
+
+class RecruitmentInvitation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    employer_id = db.Column(db.Integer, db.ForeignKey('employer.id'), nullable=False, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
+    job_id = db.Column(db.Integer, db.ForeignKey('job.id'), nullable=False, index=True)
+    message = db.Column(db.Text)
+    status = db.Column(db.String(50), default='sent', index=True)
+    sent_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, index=True)
+
+    __table_args__ = (
+        db.UniqueConstraint('employer_id', 'user_id', 'job_id', name='uq_employer_user_job_invitation'),
+    )
+
+
+class SeekerSetting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, unique=True, index=True)
+    application_review_notifications = db.Column(db.Boolean, default=True, nullable=False)
+    recruiter_contact = db.Column(db.Boolean, default=True, nullable=False)
+    news_and_updates = db.Column(db.Boolean, default=False, nullable=False)
+    profile_visibility = db.Column(db.String(20), default='public', nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, index=True)
+
+
+class EmployerNotification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    employer_id = db.Column(db.Integer, db.ForeignKey('employer.id'), nullable=False, index=True)
+    type = db.Column(db.String(50), default='system', index=True)
+    title = db.Column(db.String(255), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    is_read = db.Column(db.Boolean, default=False, nullable=False, index=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+
+
+class SeekerNotificationRead(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
+    notification_id = db.Column(db.String(120), nullable=False, index=True)
+    read_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False, index=True)
+
+    __table_args__ = (
+        db.UniqueConstraint('user_id', 'notification_id', name='uq_seeker_notification_read'),
+    )
+
+
+class SystemSetting(db.Model):
+    key = db.Column(db.String(100), primary_key=True)
+    value = db.Column(db.Text, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, index=True)
+
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False, index=True)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    display_name = db.Column(db.String(100), nullable=False, default="Quản trị viên")
+    password = db.Column(db.String(64), nullable=False)
+    avatar_path = db.Column(db.String(255))
+    is_active = db.Column(db.Boolean, default=True, index=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
